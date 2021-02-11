@@ -23,7 +23,7 @@ class DeleteDataSQL implements SQLGenInterface {
         $table = $this->obj->table;
         $values = $this->obj->diff['diff']->getOldValue();
         $values = array_map(function ($el) {
-            return "'".addslashes($el)."'";
+            return is_null($el) ? 'NULL' : "'" . addslashes($el) . "'";
         }, $values);
         return "INSERT INTO `$table` VALUES(".implode(',', $values).");";
     }
